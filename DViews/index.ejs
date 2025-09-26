@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Healix Web</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    html, body {
+      height: 100%;
+      height: auto;
+      overflow-y: auto;
+    }
+
+    .carousel-item {
+      min-height: 30vh; 
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .doctor-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 0.5rem 0.5rem 0 0;
+    }
+    main {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    } 
+  </style>
+</head>
+
+<body>
+  <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+
+      <div class="carousel-item active bg-dark text-white">
+        <div class="container">
+          <h1 class="display-5 fw-bold">Welcome to Our Clinic</h1>
+          <p class="lead">Experienced and dedicated medical professionals at your service.</p>
+          <a href="/show" class="btn btn-lg" style="background-color: rgb(244, 209, 8);">Add Doctor Manually</a>
+        </div>
+      </div>
+
+      <div class="carousel-item bg-secondary text-white">
+        <div class="container">
+          <h1 class="display-5 fw-bold">Recent Appointments</h1>
+          <p class="lead">Access and manage the most recently appointed medical professionals.</p>
+          <form action="/Doctors/random" method="POST">
+            <button class="btn btn-light btn-lg" type="submit"> Add And View Latest Doctors</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="carousel-item text-white" style="background-color: rgb(194, 9, 172);">
+        <div class="container">
+          <h1 class="display-5 fw-bold">Trusted by Thousands</h1>
+          <p class="lead">Connecting patients with certified and compassionate healthcare providers every day.</p>
+          <a class="btn btn-dark btn-lg">Browse Doctors</a>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <main class="container my-5">
+
+    <div class="text-center mb-4">
+      <form action="/Doctors/random" method="POST" class="d-inline-block mb-3">
+        <button type="submit" class="btn btn-success">Appoint Latest Doctors</button>
+      </form>
+      <a href="/show" class="btn btn-outline-primary ms-2">Add Doctors Manually</a>
+    </div>
+
+    <% if (findDoctor.length === 0) { %>
+      <div class="alert alert-warning text-center">No doctors found.</div>
+    <% } else { %>
+      <div class="row">
+        <% findDoctor.forEach(findDoc => { %>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+              <img src="<%= findDoc.Image || findDoc.image %>" alt="Doctor Image" class="doctor-img">
+
+              <div class="card-body">
+                <h5 class="card-title"><%= findDoc.DName %></h5>
+                <p class="card-text"><strong>Patient Name:</strong> <%= findDoc.Pname %></p>
+                <p class="text-muted"><%= findDoc.Specialties %></p>
+                <p class="card-text"><strong>Clinic Location:</strong> <%= findDoc.Location %></p>
+                <p class="card-text"><strong>Total Charges:</strong> $<%= findDoc.Bill %></p>
+              </div>
+              <div class="card-footer d-flex justify-content-between gap-2">
+                <a href="/Doctors/edit/<%= findDoc._id %>" class="btn btn-sm btn-outline-primary">Make Changes</a>
+                <a href="/Doctors/inspect/<%= findDoc._id %>" class="btn btn-sm btn-outline-info">Examine Profile</a>
+                <form action="/Doctors/delete/<%= findDoc._id %>" method="POST" class="d-inline">
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Remove From List</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const myCarousel = document.querySelector('#heroCarousel');
+    const carousel = new bootstrap.Carousel(myCarousel, {
+      interval: 2000,  
+      ride: 'carousel'
+    });
+  </script>
+
+</body>
+</html>

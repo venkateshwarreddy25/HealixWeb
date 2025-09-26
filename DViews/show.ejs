@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Healix Web</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-light">
+
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white text-center">
+            <h3 class="mb-0">Add  New Doctor</h3>
+          </div>
+
+          <div class="card-body">
+            <form action="/Doctors" method="POST">
+              <div class="mb-3">
+                <label for="Dname" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="Dname" name="Dname" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="Pname" class="form-label">Patient Name</label>
+                <input type="text" class="form-control" id="Pname" name="Pname"required >
+              </div>
+
+              <div class="mb-3">
+                <label for="lname" class="form-label"> Clinic Location</label>
+                <input type="text" class="form-control" id="lname" name="lname" required >
+              </div>
+
+              <div class="mb-3">
+                <label for="Special" class="form-label">Specialization</label>
+                <input type="text" class="form-control" id="Special" name="Special" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="Btotal" class="form-label">Consultation Fee (₹)</label>
+                <input type="number" class="form-control" id="Btotal" name="Btotal" required>
+              </div>
+
+                
+
+
+              <div class="mb-3">
+                <label for="url">Profile Image URL</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="Image"
+                  name="Image"
+                  value="<%= doctorview.image %>"
+                >
+              </div>
+              <div class="mb-3">
+                  <label for="start" class="form-label">Consultation Start Time</label>
+                  <input type="datetime-local" class="form-control" id="start" name="start">
+                </div>
+
+                <div class="mb-3">
+                  <label for="end" class="form-label">Consultation End Time</label>
+                  <input type="datetime-local" class="form-control" id="end" name="end">
+                </div>
+
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+
+              <div class="card-footer text-center bg-white border-0 mt-2">
+                <a href="/Doctors" class="btn btn-outline-secondary">Return to DoctorList</a>
+              </div>
+       </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
